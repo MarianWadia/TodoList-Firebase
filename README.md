@@ -25,9 +25,9 @@ To install and run the app locally, follow these steps:
 4. Create a Firebase project and enable the Firestore database.
 5. Add your Firebase configuration details as:
 
-REACT_APP_FIREBASE_API_KEY=your-api-key
-REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
-REACT_APP_FIREBASE_PROJECT_ID=your-project-id
+- REACT_APP_FIREBASE_API_KEY=your-api-key
+- REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
+- REACT_APP_FIREBASE_PROJECT_ID=your-project-id
 
 6. Start the app: `npm start`.
 
