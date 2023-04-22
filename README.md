@@ -2,6 +2,8 @@
 
 This is a Todo app built with React.js, Tailwind CSS, and Firebase. It allows users to create, read, update, and delete tasks.
 
+![Screen of the app](./public/imgs/Screenshot%202023-04-23%20003549.png)
+
 ## Features
 
 - Create a new task
@@ -25,9 +27,9 @@ To install and run the app locally, follow these steps:
 4. Create a Firebase project and enable the Firestore database.
 5. Add your Firebase configuration details as:
 
-- REACT_APP_FIREBASE_API_KEY=your-api-key
-- REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
-- REACT_APP_FIREBASE_PROJECT_ID=your-project-id
+    - REACT_APP_FIREBASE_API_KEY=your-api-key
+    - REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
+    - REACT_APP_FIREBASE_PROJECT_ID=your-project-id
 
 6. Start the app: `npm start`.
 
