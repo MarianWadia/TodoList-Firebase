@@ -5,14 +5,14 @@ import {db} from './firebase';
 import TodoItem from "./TodoItem";
 
 const styles = {
-  bg: `min-h-screen max-h-full w-full bg-gradient-to-b from-[#1abc9c] to-[#3498db]`,
-  container: `bg-gray-200 p-6 max-w-[600px] w-full m-auto rounded-md shadow-2xl`,
+  bg: `min-h-screen max-h-full w-full bg-gradient-to-b from-[#1abc9c] to-[#3498db] flex justify-center items-start`,
+  container: `bg-gray-200 p-6 max-w-[500px] w-full mt-8 rounded-md shadow-2xl`,
   heading: `text-3xl font-bold text-center`, 
   date: `text-xl mb-2`,
   form: `flex justify-between`,
   input: `w-full p-2 border text-xl`,
   button: `bg-green-600 ml-2 p-4 text-slate-200`,
-  count: `text-center text-l p-2`
+  count: `text-center text-md p-2 font-semilight italic`,
 }
 
 function App() {
@@ -23,14 +23,16 @@ function App() {
   // * Create a todo in firebase database
   const createTodo = async (e) => {
     e.preventDefault(e);
+    console.log(todos);
+
     if(input === ''){
       alert('Please Enter a valid input 🔎');
       return;
     }
 
-    else if(todos.indexOf(input) !== -1){
+    else if(todos.some((todo) => todo.text === input)) {
       alert('You already have this todo ❕🤔');
-      return; 
+      return;
     }
 
     else{
@@ -39,6 +41,7 @@ function App() {
         completed: false,
       })
     }
+    console.log(todos);
     setInput('');
   }
 
@@ -54,8 +57,17 @@ function App() {
       setTodos(todoArr);
     })
     return () => unsubscribe();
-  },[])
+  }, [])
 
+  // * Update Todo text in the firebase database
+  const updateTodo = async (todo) =>{
+    setInput(todo.text)
+    deleteTodo(todo)
+    await updateDoc(doc(db, 'todos',  todo.id), {
+      text: input
+    })
+    setInput('')
+  }
   
   // * Update data in firebase database
   const toggleComplete = async (todo) =>{
@@ -91,11 +103,12 @@ function App() {
 
         <ul className={styles.ulFields}>
           {todos.map((todo, index) => (
-            <TodoItem  key={index} todo={todo} toggleComplete={toggleComplete} deleteTodo={deleteTodo}/>
+            <TodoItem  key={index} todo={todo} toggleComplete={toggleComplete} deleteTodo={deleteTodo} updateTodo={updateTodo}/>
           ))}
         </ul>
 
-        {todos.length < 1 ? null : (<p className={styles.count}>You Have {todos.length} Todos</p>)}
+        {todos.length < 1 ? (<p className={styles.count}>No Todos yet.</p>) 
+        : (<p className={styles.count}>You Have {todos.length} Todos.</p>)}
       </div>
     </div>
   );
